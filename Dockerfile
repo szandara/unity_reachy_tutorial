@@ -14,7 +14,7 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y git
 
-ENV PROJECT_NAME=cleanr
+ENV PROJECT_NAME=unity_demo
 ENV PROJECT_DIR=/opt/$PROJECT_NAME
 RUN mkdir $PROJECT_DIR
 
@@ -39,7 +39,7 @@ RUN bash -c "source /opt/ros/noetic/setup.bash && cd $PROJECT_DIR/simulation && 
 RUN cd $PROJECT_DIR
 RUN apt install -y python-is-python3
 
-#WORKDIR $PROJECT_DIR/
+WORKDIR $PROJECT_DIR/
 
-#RUN git clone https://github.com/szandara/unity_moveit_manager.git
-#RUN bash -c "source $PROJECT_DIR/simulation/devel/setup.bash && cd $PROJECT_DIR/unity_moveit_manager && catkin_make"
+RUN git clone https://github.com/szandara/unity_moveit_manager.git
+RUN bash -c "source $PROJECT_DIR/simulation/devel/setup.bash && cd $PROJECT_DIR/unity_moveit_manager && catkin_make"

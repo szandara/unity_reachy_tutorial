@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>kovac_unity_connector</name>
+  <name>unity_reachy_demo</name>
   <version>0.0.0</version>
-  <description>The unity connector for Kovac</description>
+  <description>Demo of Reachy on Unity and Moveit</description>
 
-  <maintainer email="simone.zandara@gmail.com">Kovac</maintainer>
+  <maintainer email="simone.zandara@gmail.com">Simone Zandara</maintainer>
 
 
   <license>Apache 2.0</license>

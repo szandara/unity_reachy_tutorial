@@ -1,0 +1,49 @@
+
+<launch>
+
+  <!-- Select your Reachy configuration -->
+  <arg name="head" default="false" />
+  <arg name="left_arm" default="false" />
+  <arg name="right_arm" default="true" />
+
+  <!-- specify the planning pipeline -->
+  <arg name="pipeline" default="ompl" />
+
+  <!-- By default, we are not in debug mode -->
+  <arg name="debug" default="false" />
+
+  <!--
+  By default, hide joint_state_publisher's GUI
+
+  MoveIt's "demo" mode replaces the real robot driver with the joint_state_publisher.
+  The latter one maintains and publishes the current joint configuration of the simulated robot.
+  It also provides a GUI to move the simulated robot around "manually".
+  This corresponds to moving around the real robot without the use of MoveIt.
+  -->
+  <arg name="use_gui" default="false" />
+
+  <!-- If needed, broadcast static tf for robot root -->
+
+  <!-- We do not have a robot connected, so publish fake joint states -->
+<!--   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"> -->
+<!--     <param name="use_gui" value="$(arg use_gui)"/> -->
+<!--     <rosparam param="source_list">[/joint_states]</rosparam> -->
+<!--   </node> -->
+
+  <!-- Given the published joint states, publish tf for the robot links -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+
+  <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
+  <include file="$(find unity_reachy_tutorial)/launch/move_group.launch">
+    <arg name="head" value="$(arg head)" />
+    <arg name="left_arm" value="$(arg left_arm)" />
+    <arg name="right_arm" value="$(arg right_arm)" />
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="execution_controller" value="unity"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+    <arg name="pipeline" value="$(arg pipeline)"/>
+  </include>
+
+  <include file="$(find unity_reachy_tutorial)/launch/unity_connector.launch" />
+</launch>

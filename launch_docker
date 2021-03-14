@@ -1,15 +1,13 @@
 XAUTH=/tmp/.docker.xauth
 XSOCK=/tmp/.X11-unix
 
-docker run -e "QT_X11_NO_MITSHM=1" \
-       --net=host \
-	   -e DISPLAY=$DISPLAY \
-	   -v $XSOCK:$XSOCK \
-	   -v $XAUTH:$XAUTH \
-	   -e XAUTHORITY=$XAUTH \
-	   --privileged \
-	   --rm \
-	   --gpus=all \
-	   -v /home/zandara/clean_ros/ros1/kovac:/opt/kovac \
-	   -it clean_ros:1.0 bash
+docker run --net=host \
+       -e DISPLAY=$DISPLAY \
+       -v $XSOCK:$XSOCK \
+       -v $XAUTH:$XAUTH \
+       -e XAUTHORITY=$XAUTH \
+       --rm \
+       --gpus=all \
+       -v $(pwd):/opt/unity_demo/unity_reachy_tutorial \
+       -it ros_wsl2/unity_demo:1.0 bash
 

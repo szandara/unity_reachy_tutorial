@@ -1,0 +1,9 @@
+<launch>
+
+  <!-- Set the param that trajectory_execution_manager needs to find the controller plugin -->
+  <param name="moveit_controller_manager" value="unity_moveit_manager/UnityMoveitManager"/>
+
+  <!-- The rest of the params are specific to this plugin -->
+  <rosparam file="$(find unity_reachy_tutorial)/config/unity_controller.yaml"/>
+
+</launch>

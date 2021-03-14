@@ -1,0 +1,13 @@
+controller_list:
+  - name: unity_right_arm_controller
+    joints:
+      - r_shoulder_pitch
+      - r_shoulder_roll
+      - r_arm_yaw
+      - r_elbow_pitch
+      - r_forearm_yaw
+      - r_wrist_pitch
+      - r_wrist_roll
+initial:  # Define initial robot poses.
+  - group: right_arm
+    pose: right_rest
