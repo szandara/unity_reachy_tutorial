@@ -1,0 +1,15 @@
+XAUTH=/tmp/.docker.xauth
+XSOCK=/tmp/.X11-unix
+
+docker run -e "QT_X11_NO_MITSHM=1" \
+       --net=host \
+	   -e DISPLAY=$DISPLAY \
+	   -v $XSOCK:$XSOCK \
+	   -v $XAUTH:$XAUTH \
+	   -e XAUTHORITY=$XAUTH \
+	   --privileged \
+	   --rm \
+	   --gpus=all \
+	   -v /home/zandara/clean_ros/ros1/kovac:/opt/kovac \
+	   -it clean_ros:1.0 bash
+
