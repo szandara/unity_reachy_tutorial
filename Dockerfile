@@ -1,4 +1,4 @@
-FROM ros:noetic
+FROM ros:noetic-ros-base
 
 # install ros package
 RUN apt update && apt install -y \
@@ -12,34 +12,18 @@ RUN apt update && apt install -y \
 # Install GIT
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y git
+    apt-get install -y git vim python-is-python3
 
 ENV PROJECT_NAME=unity_demo
 ENV PROJECT_DIR=/opt/$PROJECT_NAME
 RUN mkdir $PROJECT_DIR
 
-# Setup reachy
-RUN mkdir $PROJECT_DIR/reachy/
-RUN mkdir $PROJECT_DIR/reachy/src
-WORKDIR $PROJECT_DIR/reachy/src
-
-RUN git clone https://github.com/pollen-robotics/reachy_moveit_config --branch release-1.0.0
-RUN git clone https://github.com/pollen-robotics/reachy_description
-RUN cd reachy_description && git checkout ce171a0aac7f665e88e99395690e773adb096f67
-RUN bash -c "source /opt/ros/noetic/setup.bash && cd $PROJECT_DIR/reachy && catkin_make"
-
-# Setup ROS/Unity
-RUN mkdir $PROJECT_DIR/simulation/
-RUN mkdir $PROJECT_DIR/simulation/src
-WORKDIR $PROJECT_DIR/simulation/src
+# Setup ROS/Unity libraries
+ENV LIB_NAME=unity_lib
+RUN mkdir $PROJECT_DIR/$LIB_NAME
+RUN mkdir $PROJECT_DIR/$LIB_NAME/src
+WORKDIR $PROJECT_DIR/$LIB_NAME/src
 
 RUN git clone https://github.com/Unity-Technologies/ROS-TCP-Endpoint.git
-RUN bash -c "source /opt/ros/noetic/setup.bash && cd $PROJECT_DIR/simulation && catkin_make"
-
-RUN cd $PROJECT_DIR
-RUN apt install -y python-is-python3
-
-WORKDIR $PROJECT_DIR/
-
 RUN git clone https://github.com/szandara/unity_moveit_manager.git
-RUN bash -c "source $PROJECT_DIR/simulation/devel/setup.bash && cd $PROJECT_DIR/unity_moveit_manager && catkin_make"
+RUN bash -c "source /opt/ros/noetic/setup.bash && cd $PROJECT_DIR/$LIB_NAME && catkin_make"

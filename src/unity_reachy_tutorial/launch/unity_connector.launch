@@ -1,6 +1,6 @@
 <launch>
     <env name="ROS_IP" value="127.0.0.1"/>
-    <env name="ROS_HOSTNAME" value="$(env ROS_IP)"/>
+    <env name="ROS_HOSTNAME" value="127.0.0.1"/>
 
     <param name="ROS_IP" type="str" value="$(env ROS_IP)" />
     <param name="ROS_TCP_PORT" type="int" value="10000" />
@@ -15,6 +15,6 @@
 
     <group ns="joint_state_group">
           <rosparam file="$(find unity_reachy_tutorial)/config/unity_controller.yaml"/>
-          <node pkg="kovac_unity_connector" name="server_endpoint" type="server_endpoint.py" output="screen"/>
+          <node pkg="unity_moveit_tcp_server" name="server_endpoint" type="server_endpoint.py" output="screen"/>
     </group>
 </launch>
